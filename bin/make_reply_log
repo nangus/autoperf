@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require File.join(File.dirname(__FILE__), '..', 'lib', 'replay_log')
+progname = File.basename($0)
+
+if ARGV.size < 3
+  puts "Usage: ruby #{progname} 'match' 'substitute' 'http_server' file1 [file2 [file3]] > output_file"
+  puts "Usage: cat logfile | ruby #{progname} 'match' 'substitute' 'http_server' > output_file"
+  puts
+  puts "Example: cat /var/log/access_log | ruby #{progname} '/app' '/' nginx > replay_log"
+  puts "Example: cat /var/log/access_log | ruby #{progname} '' '' apache > replay_log"
+  exit
+end
+
+match = ARGV.shift
+sub   = ARGV.shift
+type  = ARGV.shift
+
+ARGF.each { |line| ReplayLog.parse(line, match, sub, type)  }

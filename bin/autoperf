@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require File.join(File.dirname(__FILE__), '..', 'lib', 'autoperf')
+
+trap("INT") {
+  puts "Terminating tests."
+  Process.exit
+}
+
+conf = ""
+OptionParser.new do |opts|
+  opts.banner = "Usage: autoperf.rb [-c config]"
+
+  opts.on("-c", "--config [string]", String, "configuration file") do |c|
+    conf = c
+  end
+end.parse!
+
+Autoperf.new(conf).run()

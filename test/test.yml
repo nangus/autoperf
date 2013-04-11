@@ -1,0 +1,6 @@
+server:    www.rubyops.net
+uri:       /about
+low_rate:  5
+high_rate: 20
+rate_step: 5
+'num-conns': 50
