@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
- 
-require 'autoperf'
+
+require 'autoperf/version'
 
 Gem::Specification.new do |s|
   s.name        = "autoperf"
@@ -16,9 +16,12 @@ Gem::Specification.new do |s|
 
 This has been refactored from the original -- https://github.com/igrigorik/autoperf -- to include HTTPerf.rb -- http://rubyops.net/gems/httperfrb -- as a simplification."
 
-  s.add_dependency "httperfrb", ">=0.3.11"
- 
-  s.files        = Dir.glob("lib/**/*") + Dir.glob("bin/**/*") + %w(README.md HISTORY.md Gemfile)
+  s.add_dependency "httperfrb"
+  s.add_dependency "ruport"
+
+  s.files        = Dir.glob("lib/**/*") + Dir.glob("bin/**/*") + %w(README.md Gemfile)
   s.require_path = 'lib'
   s.bindir       = 'bin'
+  s.executables << 'autoperf'
+  s.executables << 'make_replay_log'
 end
