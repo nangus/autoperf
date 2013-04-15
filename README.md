@@ -1,3 +1,3 @@
 # Autoperf (w/ HTTPerf.rb)
 
-### See: [rubyops.net/gems/autoperf-httperfrb](http://www.rubyops.net/gems/autoperf-httperfrb)
+### See: [rubyops.net/gems/autoperf](http://www.rubyops.net/gems/autoperf)
