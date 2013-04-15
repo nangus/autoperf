@@ -25,6 +25,7 @@ GEM
     pry-doc (0.4.5)
       pry (>= 0.9)
       yard (>= 0.8)
+    rake (10.0.4)
     ruport (1.6.3)
       fastercsv
       pdf-writer (= 1.1.8)
@@ -39,3 +40,4 @@ DEPENDENCIES
   autoperf!
   pry
   pry-doc
+  rake

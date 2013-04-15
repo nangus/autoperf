@@ -1,7 +1,8 @@
 require 'rubygems'
-require 'ruport'
 require 'yaml'
 require 'httperf'
+require 'json'
+require './lib/autoperf/display'
 
 class Autoperf
   def initialize(config_file, opts = {})
@@ -18,32 +19,35 @@ class Autoperf
       :high_rate => config.delete('high_rate'),
       :rate_step => config.delete('rate_step')
     }
+    @cols  = config.delete('display_columns') if config.has_key?('display_columns')
     @tee   = config.delete('tee')||false
     return config
   end
 
   def run report=nil
-    results = {}
-    report = Table(
-      :column_names => [
-        :rate,
-        :connection_rate_per_sec,
-        :request_rate_per_sec,
-        :reply_rate_avg,
-        :errors_total,
-        :reply_status_5xx,
-        :net_io_kb_sec
-      ]
-    ) unless report.kind_of?(Ruport::Data::Table)
-
+    @results = {}
     (@rates[:low_rate].to_i..@rates[:high_rate].to_i).step(@rates[:rate_step].to_i) do |rate|
       @perf.update_option("num-conns", rate.to_s)
-      results[rate] = @perf.run
-      report << results[rate].merge(:rate => rate)
+      @results[rate] = @perf.run
     end
+    return @results
+  end
 
-    puts report.to_s
+  def display
+    @results ||= {}
+    if @cols
+      Autoperf::Display.new(@results, @cols)
+    else
+      Autoperf::Display.new(@results)
+    end
+  end
 
-    return results
+  def to_s
+    display.to_s
+  end
+
+  def to_json
+    @results ||= {}
+    @results.to_json
   end
 end

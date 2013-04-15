@@ -1,23 +1,13 @@
 require "minitest/autorun"
-require "stringio"
 require "./lib/autoperf"
 
-class TestReplayLog < MiniTest::Unit::TestCase
+class TestAutoperf < MiniTest::Unit::TestCase
   def setup
-    @config_file = "./config/sample.yml"
-
-    # redirect STDOUT
-    @newout = StringIO.new
-    @oldout = $stdout
-    $stdout = @newout
-  end
-
-  def teardown
-    $stdout = @oldout
+    @config_file = "./test/test.yml"
   end
 
   def test_initialize_from_file
-    assert_equal "localhost",
+    assert_equal "www.rubyops.net",
       Autoperf.new(@config_file).instance_variable_get(:@conf)['server'],
       "configuration from file"
   end
@@ -29,15 +19,18 @@ class TestReplayLog < MiniTest::Unit::TestCase
   end
 
   def test_initialize_rates
-    assert_equal 100, Autoperf.new(@config_file).instance_variable_get(:@rates)[:low_rate],  "low_rate"
-    assert_equal 500, Autoperf.new(@config_file).instance_variable_get(:@rates)[:high_rate], "high_rate"
-    assert_equal 50,  Autoperf.new(@config_file).instance_variable_get(:@rates)[:rate_step], "rate_step"
+    assert_equal 5,  Autoperf.new(@config_file).instance_variable_get(:@rates)[:low_rate],  "low_rate"
+    assert_equal 20, Autoperf.new(@config_file).instance_variable_get(:@rates)[:high_rate], "high_rate"
+    assert_equal 5,  Autoperf.new(@config_file).instance_variable_get(:@rates)[:rate_step], "rate_step"
   end
 
   def test_initialize_clean_config
     refute Autoperf.new(@config_file).instance_variable_get(:@conf)['low_rate'],  "low_rate"
     refute Autoperf.new(@config_file).instance_variable_get(:@conf)['high_rate'], "high_rate"
     refute Autoperf.new(@config_file).instance_variable_get(:@conf)['rate_step'], "rate_step"
+
+    refute Autoperf.new(@config_file).instance_variable_get(:@conf)['display_columns'], "display_columns"
+
     refute Autoperf.new(@config_file, { "tee" => true }).instance_variable_get(:@conf)['tee'], "tee"
   end
 
@@ -45,7 +38,20 @@ class TestReplayLog < MiniTest::Unit::TestCase
     assert_kind_of HTTPerf, Autoperf.new(@config_file).instance_variable_get(:@perf)
   end
 
+  def test_initialize_cols
+    assert_kind_of Array,  Autoperf.new(@config_file).instance_variable_get(:@cols)
+    assert_kind_of Symbol, Autoperf.new(@config_file).instance_variable_get(:@cols).first
+  end
+
   def test_bad_configuration
     assert_raises(Errno::EACCES) { Autoperf.new("/this/does/not/exist.yml") }
+  end
+
+  def test_to_json
+    autoperf = Autoperf.new(@config_file)
+    assert_equal "{}", autoperf.to_json
+
+    autoperf.instance_variable_set(:@results, { "foo" => "bar" })
+    assert_equal '{"foo":"bar"}', autoperf.to_json
   end
 end

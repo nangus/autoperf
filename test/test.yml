@@ -1,3 +1,7 @@
+display_columns:
+- :rate
+- :connection_rate_per_sec
+- :errors_total
 server:    www.rubyops.net
 uri:       /about
 low_rate:  5

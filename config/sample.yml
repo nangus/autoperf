@@ -1,4 +1,4 @@
-# AutoHTTPerf Configuration File
+# Autoperf Configuration File
 #
 # I've included all possible configurations, some commented.
 #
@@ -9,6 +9,24 @@
 # As for this, it's important to note that if an httperf param has
 # a dash ('-') in it, it must be wrapped in quotes, either single
 # or double. I use single in my examples below.
+
+# table column configuratio for display
+#
+# Note: this should be a list of symbols which match the result
+# from HTTPerf.rb. That said, it can be symbol (like :rate) so
+# long as you populate it yourself.
+#
+# display_columns:
+# - :rate
+# - :connection_rate_per_sec
+# - :request_rate_per_sec
+# - :reply_rate_avg
+# - :errors_total
+# - :reply_status_5xx
+# - :net_io_kb_sec
+#
+# :rate is specific to autoperf, see HTTPerf.rb for a list of
+# keys: http://www.rubyops.net/gems/httperfrb
 
 ## tee
 #

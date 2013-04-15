@@ -16,4 +16,6 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-Autoperf.new(conf).run()
+autoperf = Autoperf.new(conf)
+autoperf.run()
+autoperf.display.print
