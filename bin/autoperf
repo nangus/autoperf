@@ -11,9 +11,15 @@ conf = ""
 OptionParser.new do |opts|
   opts.banner = "Usage: autoperf.rb [-c config]"
 
-  opts.on("-c", "--config [string]", String, "configuration file") do |c|
+  opts.on("-c", "--config [STRING]", String, "configuration file") do |c|
     conf = c
   end
+
+  if conf.empty?
+    puts opts
+    exit 1
+  end
+
 end.parse!
 
 autoperf = Autoperf.new(conf)
