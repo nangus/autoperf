@@ -1,8 +1,9 @@
+$:.unshift File.dirname(__FILE__)
 require 'rubygems'
 require 'yaml'
 require 'httperf'
 require 'json'
-require './lib/autoperf/display'
+require 'autoperf/display'
 
 class Autoperf
   def initialize(config_file, opts = {})
