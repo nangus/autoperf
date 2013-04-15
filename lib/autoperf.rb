@@ -1,4 +1,3 @@
-$:.unshift File.dirname(__FILE__)
 require 'rubygems'
 require 'yaml'
 require 'httperf'
@@ -10,6 +9,7 @@ class Autoperf
     @conf = parse_config(config_file).merge(opts)
     @perf = HTTPerf.new(@conf)
     @perf.parse = true
+    @perf.tee = true if @tee
   end
 
   def parse_config(config_file)
@@ -28,7 +28,7 @@ class Autoperf
   def run report=nil
     @results = {}
     (@rates[:low_rate].to_i..@rates[:high_rate].to_i).step(@rates[:rate_step].to_i) do |rate|
-      @perf.update_option("num-conns", rate.to_s)
+      @perf.update_option("rate", rate.to_s)
       @results[rate] = @perf.run
     end
     return @results

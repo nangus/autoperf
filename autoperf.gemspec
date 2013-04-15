@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "rake"
 
-  s.add_dependency "httperfrb"
+  s.add_dependency "httperfrb", ">=0.3.11"
   s.add_dependency "ruport"
 
   s.files        = Dir.glob("lib/**/*") + Dir.glob("bin/**/*") + %w(README.md Gemfile)

@@ -8,19 +8,19 @@ trap("INT") {
 }
 
 conf = ""
-OptionParser.new do |opts|
+options = OptionParser.new do |opts|
   opts.banner = "Usage: autoperf.rb [-c config]"
 
   opts.on("-c", "--config [STRING]", String, "configuration file") do |c|
     conf = c
   end
+end
 
-  if conf.empty?
-    puts opts
-    exit 1
-  end
-
-end.parse!
+options.parse!
+if conf.empty?
+  puts options
+  exit 1
+end
 
 autoperf = Autoperf.new(conf)
 autoperf.run()

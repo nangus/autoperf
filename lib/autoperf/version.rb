@@ -1,3 +1,3 @@
 class Autoperf
-  VERSION = "1.0.2beta4"
+  VERSION = "1.0.4"
 end
