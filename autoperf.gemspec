@@ -9,12 +9,10 @@ Gem::Specification.new do |s|
   s.version     = Autoperf::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Joshua Mervine", "Ilya Grigorik"]
-  s.email       = ["joshua@mervine.net", "ilya@igvita.com"]
+  s.email       = ["joshua@mervine.net", "excluded"]
   s.homepage    = "http://www.rubyops.net/gems/autoperf"
   s.summary     = "Autoperf (w/ HTTPerf.rb)"
-  s.description = "Autoperf is a ruby driver for httperf, designed to help you automate load and performance testing of any web application - for a single end point, or through log replay.
-
-This has been refactored from the original -- https://github.com/igrigorik/autoperf -- to include HTTPerf.rb -- http://rubyops.net/gems/httperfrb -- as a simplification."
+  s.description = "Autoperf is a ruby driver for httperf, designed to help you automate load and performance testing of any web application - for a single end point, or through log replay."
 
   s.add_development_dependency "rake"
 
