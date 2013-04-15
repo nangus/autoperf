@@ -7,7 +7,7 @@ class TestAutoperfDisplay < MiniTest::Unit::TestCase
       100 => {
         :connection_rate_per_sec => 10,
         :request_rate_per_sec    => 10,
-        :reply_rate_avg          => 10,
+        :connection_time_avg     => 10,
         :errors_total            => 2,
         :reply_status_5xx        => 2,
         :net_io_kb_sec           => 1000
@@ -31,7 +31,7 @@ class TestAutoperfDisplay < MiniTest::Unit::TestCase
   end
 
   def test_init_table
-    table = Table( :column_names => [ :rate, :connection_rate_per_sec, :errors_total, :reply_rate_avg, :reply_status_5xx ] )
+    table = Table( :column_names => [ :rate, :connection_rate_per_sec, :errors_total, :connection_time_avg, :reply_status_5xx ] )
     display = Autoperf::Display.new(@result, table)
     assert_equal Ruport::Data::Table, display.instance_variable_get(:@table).class
     assert_equal 5,   display.instance_variable_get(:@table).column_names.size
@@ -39,7 +39,7 @@ class TestAutoperfDisplay < MiniTest::Unit::TestCase
   end
 
   def test_init_table_without_rate
-    table = Table( :column_names => [ :connection_rate_per_sec, :errors_total, :reply_rate_avg, :reply_status_5xx ] )
+    table = Table( :column_names => [ :connection_rate_per_sec, :errors_total, :connection_time_avg, :reply_status_5xx ] )
     display = Autoperf::Display.new(@result, table)
     assert_equal Ruport::Data::Table, display.instance_variable_get(:@table).class
     assert_equal 4, display.instance_variable_get(:@table).column_names.size
@@ -48,7 +48,7 @@ class TestAutoperfDisplay < MiniTest::Unit::TestCase
 
   def test_to_s
     display = Autoperf::Display.new(@result)
-    result_string = "+--------------------------------------------------------------------------------------------------------------------------+\n| rate | connection_rate_per_sec | request_rate_per_sec | reply_rate_avg | errors_total | reply_status_5xx | net_io_kb_sec |\n+--------------------------------------------------------------------------------------------------------------------------+\n|  100 |                      10 |                   10 |             10 |            2 |                2 |          1000 |\n+--------------------------------------------------------------------------------------------------------------------------+\n"
+    result_string = "+-------------------------------------------------------------------------------------------------------------------------------+\n| rate | connection_rate_per_sec | request_rate_per_sec | connection_time_avg | errors_total | reply_status_5xx | net_io_kb_sec |\n+-------------------------------------------------------------------------------------------------------------------------------+\n|  100 |                      10 |                   10 |                  10 |            2 |                2 |          1000 |\n+-------------------------------------------------------------------------------------------------------------------------------+\n"
     assert_equal result_string, display.to_s
   end
 
@@ -57,8 +57,8 @@ class TestAutoperfDisplay < MiniTest::Unit::TestCase
     out, err = capture_io {
       display.print
     }
-    assert out.include?("| rate | connection_rate_per_sec | request_rate_per_sec | reply_rate_avg | errors_total | reply_status_5xx | net_io_kb_sec |")
-    assert out.include?("|  100 |                      10 |                   10 |             10 |            2 |                2 |          1000 |")
+    assert out.include?("| rate | connection_rate_per_sec | request_rate_per_sec | connection_time_avg | errors_total | reply_status_5xx | net_io_kb_sec |")
+    assert out.include?("|  100 |                      10 |                   10 |                  10 |            2 |                2 |          1000 |")
     assert_empty err
   end
 end

@@ -11,7 +11,7 @@ class Autoperf::Display
                    :rate,
                    :connection_rate_per_sec,
                    :request_rate_per_sec,
-                   :reply_rate_avg,
+                   :connection_time_avg,
                    :errors_total,
                    :reply_status_5xx,
                    :net_io_kb_sec
