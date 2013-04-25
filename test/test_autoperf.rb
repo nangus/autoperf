@@ -30,6 +30,7 @@ class TestAutoperf < MiniTest::Unit::TestCase
     refute Autoperf.new(@config_file).instance_variable_get(:@conf)['rate_step'], "rate_step"
 
     refute Autoperf.new(@config_file).instance_variable_get(:@conf)['display_columns'], "display_columns"
+    refute Autoperf.new(@config_file).instance_variable_get(:@conf)['display_format'],  "display_format"
 
     refute Autoperf.new(@config_file, { "tee" => true }).instance_variable_get(:@conf)['tee'], "tee"
   end
@@ -49,9 +50,9 @@ class TestAutoperf < MiniTest::Unit::TestCase
 
   def test_to_json
     autoperf = Autoperf.new(@config_file)
-    assert_equal "{}", autoperf.to_json
+    assert_equal "[]", autoperf.to_json
 
-    autoperf.instance_variable_set(:@results, { "foo" => "bar" })
-    assert_equal '{"foo":"bar"}', autoperf.to_json
+    autoperf.instance_variable_set(:@results, { 1 => { :connection_rate_per_sec => 100 } })
+    assert_equal "[{\"connection_rate_per_sec\":100,\"rate\":1}]", autoperf.to_json
   end
 end

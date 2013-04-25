@@ -1,3 +1,4 @@
+display_format: console
 display_columns:
 - :rate
 - :connection_rate_per_sec

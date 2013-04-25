@@ -10,7 +10,12 @@
 # a dash ('-') in it, it must be wrapped in quotes, either single
 # or double. I use single in my examples below.
 
-# table column configuratio for display
+# display type
+# display_format: console
+# display_format: json
+# display_format: csv
+
+# configuration for display columns
 #
 # Note: this should be a list of symbols which match the result
 # from HTTPerf.rb. That said, it can be symbol (like :rate) so
@@ -27,13 +32,17 @@
 #
 # :rate is specific to autoperf, see HTTPerf.rb for a list of
 # keys: http://www.rubyops.net/gems/httperfrb
+#
+# for "console" and "csv", defines columns
+# for "json", defines which results to include
+#
 
 ## tee
 #
 # This is an httperf specific option which will force httperf to
 # send it's STDOUT to the console as it runs, it defaults to false
 #
-# tee: true
+tee: true
 
 # The host
 server: localhost
