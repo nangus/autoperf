@@ -32,6 +32,8 @@ class TestAutoperf < MiniTest::Unit::TestCase
     refute Autoperf.new(@config_file).instance_variable_get(:@conf)['display_columns'], "display_columns"
     refute Autoperf.new(@config_file).instance_variable_get(:@conf)['display_format'],  "display_format"
 
+    refute Autoperf.new(@config_file).instance_variable_get(:@conf)['httperf_path'],    "httperf_path"
+
     refute Autoperf.new(@config_file, { "tee" => true }).instance_variable_get(:@conf)['tee'], "tee"
   end
 
