@@ -7,7 +7,7 @@ require 'autoperf/display'
 class Autoperf
   def initialize(config_file, opts = {})
     @conf       = parse_config(config_file).merge(opts)
-    @perf       = HTTPerf.new(@conf)
+    @perf       = HTTPerf.new(@conf, @path)
     @perf.parse = true
     @perf.tee   = true if @tee
   end
@@ -25,6 +25,7 @@ class Autoperf
     @cols   = config.delete('display_columns')        if config.has_key?('display_columns')
     @tee    = config.delete('tee')||false
     @format = config.delete('display_format').to_sym  if config.has_key?('display_format')
+    @path   = config.delete('httperf_path')||nil
 
     return config
   end
