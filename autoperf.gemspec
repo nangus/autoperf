@@ -14,10 +14,11 @@ Gem::Specification.new do |s|
   s.summary     = "Autoperf (w/ HTTPerf.rb)"
   s.description = "Autoperf is a ruby driver for httperf, designed to help you automate load and performance testing of any web application - for a single end point, or through log replay."
 
-  s.add_development_dependency "rake"
+  s.add_development_dependency "rake", "~> 10.0.4"
+  s.add_development_dependency "minitest", "~> 4.7.1"
 
-  s.add_dependency "httperfrb", ">=0.3.11"
-  s.add_dependency "ruport"
+  s.add_dependency "httperfrb", "~> 0.3.11"
+  s.add_dependency "ruport", "~> 1.6.3"
 
   s.files        = Dir.glob("lib/**/*") + Dir.glob("bin/**/*") + %w(README.md Gemfile)
   s.require_path = 'lib'
@@ -25,3 +26,5 @@ Gem::Specification.new do |s|
   s.executables << 'autoperf'
   s.executables << 'make_replay_log'
 end
+
+# vim: filetype=ruby:
