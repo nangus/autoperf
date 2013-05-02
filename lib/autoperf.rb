@@ -30,7 +30,7 @@ class Autoperf
     return config
   end
 
-  def run report=nil
+  def run
     @results = {}
     (@rates[:low_rate].to_i..@rates[:high_rate].to_i).step(@rates[:rate_step].to_i) do |rate|
       @perf.update_option("rate", rate.to_s)
