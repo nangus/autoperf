@@ -72,10 +72,10 @@ verbose: true
 wlog: 'n,replay_log'
 
 # Total number of connections
-'num-conns': 50
+num-conns: 50
 
 # See httperf docs
-'num-calls': 1
+num-calls: 1
 
 # See httperf docs
 timeout: 5
@@ -84,37 +84,39 @@ timeout: 5
 # If your test server is using HTTP basic auth, add a header like the following.
 # To figure out what it should be use "curl -u user:password -v ..."
 #
-# 'add-header': '"Authorization: Basic AbC123xYz456==\n"'
+# add-header: '"Authorization: Basic AbC123xYz456==\n"'
 
 ###
 # Other httperf options
 #
 # See httperf docs for details
 ###
-# 'burst-length'
+# burst-length
 # client
-# 'close-with-reset'
+# close-with-reset
 # debug
-# 'failure-status'
+# failure-status
 # hog
-# 'http-version'
-# 'max-connections'
-# 'max-piped-calls'
+# http-version
+# max-connections
+# max-piped-calls
 # method
-# 'no-host-hdr'
+# no-host-hdr
 # period
 # port
-# 'print-reply'
-# 'print-request'
-# 'recv-buffer'
-# 'retry-on-failure'
-# 'send-buffer'
-# 'server-name'
-# 'session-cookies'
+# print-reply
+# print-request
+# recv-buffer
+# retry-on-failure
+# send-buffer
+# server-name
+# session-cookies
 # ssl
-# 'ssl-ciphers'
-# 'ssl-no-reuse'
-# 'think-timeout'
+# ssl-ciphers
+# ssl-no-reuse
+# think-timeout
 # wsess
 # wsesslog
 # wset
+
+# vim: filetype=yaml:
