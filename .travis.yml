@@ -2,4 +2,6 @@ language: ruby
 script: PATH="./test:$PATH" bundle exec rake test
 rvm:
   - 1.9.3
+  - 2.0.0
+  - 2.1.0
 
