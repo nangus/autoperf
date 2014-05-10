@@ -7,8 +7,7 @@ testing of any web application - for a single end point, or through log replay.
 
 This has been refactored from the original -- [github.com/igrigorik/autoperf](https://github.com/igrigorik/autoperf)
 -- to include [HTTPerf.rb](http://mervine.net/gems/httperfrb) as a simplification and to include additional features.
-This has been refactored and released with permission from [Ilya Grigorik](http://www.igvita.com/), the origional
-author.
+This has been refactored and released with permission from [Ilya Grigorik](http://www.igvita.com/), the original author.
 
 More info on the original Autoperf: [http://www.igvita.com/2008/09/30/load-testing-with-log-replay/](http://www.igvita.com/2008/09/30/load-testing-with-log-replay/).
 
