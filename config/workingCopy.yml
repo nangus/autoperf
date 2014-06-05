@@ -55,15 +55,15 @@ server: ypperf1.wc1.yellowpages.com
 port: 80
 
 # Starting connection rate per second
-low_rate: 100
+low_rate: 5
 
 # Highest connection rate per second
-high_rate: 500
+high_rate: 15
 
 # Connection rate per second steps
 # For the example config:
 # [ 100, 150, 200, 250, 300, 350, 400, 450, 500 ]
-rate_step: 50
+rate_step: 1
 
 # Run httperf verbose
 verbose: true
@@ -72,13 +72,15 @@ verbose: true
 #wlog: 'n,replay_log'
 
 #session log with percentage
-wsesslog: ['10,0,srp.log', '1,0,mip.log', '1,0,hom.log']
+#wsesslog: '100,0,logs/srp.log'
+logDir: 'logs/'
+logRefs: ['srp'=>0.9,'mip'=>0.03,'hom'=>0.07]
 
 # Total number of connections
-num-conns: 50
+#num-conns: 50
 
 # See httperf docs
-num-calls: 1
+#num-calls: 1
 
 # See httperf docs
 timeout: 5
