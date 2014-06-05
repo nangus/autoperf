@@ -15,6 +15,7 @@ class Autoperf
   def parse_config(config_file)
     raise Errno::EACCES, "#{config_file} is not readable" unless File.readable?(config_file)
     config = YAML::load(File.open(config_file, 'r'))
+    puts config.inspect
 
     @rates  = {
       :low_rate  => config.delete('low_rate'),
