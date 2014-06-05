@@ -72,9 +72,13 @@ verbose: true
 #wlog: 'n,replay_log'
 
 #session log with percentage
-#wsesslog: '100,0,logs/srp.log'
-logDir: 'logs/'
-logRefs: ['srp'=>0.9,'mip'=>0.03,'hom'=>0.07]
+wsesslog:   '100,0,logs/srp.log'
+logDir:     'logs/'
+logRefs:
+    :srp : 0.90
+    :hom : 0.07
+    :mip : 0.03
+durr:   15
 
 # Total number of connections
 #num-conns: 50

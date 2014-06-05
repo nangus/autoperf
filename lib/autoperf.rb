@@ -15,7 +15,15 @@ class Autoperf
   def parse_config(config_file)
     raise Errno::EACCES, "#{config_file} is not readable" unless File.readable?(config_file)
     config = YAML::load(File.open(config_file, 'r'))
-    puts config.inspect
+    if config.has_key?('logRefs') 
+        @logDir     = config.delete('logDir').to_s
+        @logRefs    = config.delete('logRefs')
+        @durr       = config.delete('durr')
+        puts "test\n"
+        @logRefs.each do |k,v|
+            puts k.to_s  + " " + v.to_s
+        end
+    end
 
     @rates  = {
       :low_rate  => config.delete('low_rate'),
@@ -34,8 +42,22 @@ class Autoperf
   def run
     @results = {}
     (@rates[:low_rate].to_i..@rates[:high_rate].to_i).step(@rates[:rate_step].to_i) do |rate|
-      @perf.update_option("rate", rate.to_s)
-      @results[rate] = @perf.run
+        if @logRefs 
+            magicArray={};
+            @logRefs.each do |k,v|
+                pid = fork do
+                    numConns=@durr.to_f * v.to_f
+                    @perf.update_option("wsesslog", numConns.to_i.to_s+",0,"+@logDir+k.to_s+".log")
+                    @perf.update_option("rate",(rate.to_f * v.to_f).to_s)
+                    magicArray[k]=@perf.run
+                end
+            end
+            Process.wait
+            @results[rate]=magicArray
+        else
+            @perf.update_option("rate", rate.to_s)
+            @results[rate] = @perf.run
+        end 
     end
     return @results
   end
