@@ -102,11 +102,11 @@ for(var i =0 ; i<runns-1;i++){
     addresses.push(addresses[i]);
 }
 
-function launcher(runs) {
+function launcher() {
     if(failures>5){
         phantom.exit(1);
     }
-    if(runs) running--;
+    running--;
     while(running < limit && addresses.length > 0){
         running++;
         collectData(addresses.shift());
@@ -121,7 +121,8 @@ function collectData(address){
     var page    = require('webpage').create();
     var domain  = address.match("(^https?\:\/\/[^\/?#]+)(?:[\/?#]|$)")[1];
     var tim     = Date.now();
-    var dupes   =[];
+    var dupes   = [];
+    var hadPost = false;
     page.settings.resourceTimeout = 10000;
     phantom.clearCookies();
     console.log('generating list for '+address);
@@ -144,6 +145,7 @@ function collectData(address){
                 }
                 sesstring+=requestData.url.substring(domain.length);
                 if(requestData.method === "POST"){
+                    hadPost=true;
                     //httperf was choaking on requests that were too big
                     var data=requestData.postData;
                     if( data.length > 1000){
@@ -162,7 +164,7 @@ function collectData(address){
     };
 
     page.open(address, function(status) {
-        if (status === 'success') {
+        if (status === 'success' && hadPost) {
             fs.write(fileOutput,session+'\n','a');
         } else {
             console.log('Unable to load the address!');
@@ -170,9 +172,9 @@ function collectData(address){
             addresses.push(address);
         }
         (page.close||page.release)();
-        launcher(true);
+        launcher();
     });
 };
 //Here we go!
-launcher(true);
+launcher();
 
